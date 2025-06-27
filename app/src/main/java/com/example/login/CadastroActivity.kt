@@ -1,26 +1,25 @@
 package com.example.login
-import com.example.login.R
+
 import android.os.Bundle
-import android.widget.*
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.login.databinding.ActivityCadastroBinding // <<--- IMPORTANTE: Importe a classe de binding gerada
 
 class CadastroActivity : AppCompatActivity() {
+
+    // Declare a variável para a sua classe de binding
+    private lateinit var binding: ActivityCadastroBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_cadastro)
 
-        val nomeUsuarioEditText = findViewById<EditText>(R.id.etNomeUsuario)
-        val emailEditText = findViewById<EditText>(R.id.etEmailCadastro)
-        val senhaEditText = findViewById<EditText>(R.id.etSenhaCadastro)
-        val btnCadastrarUsuario = findViewById<Button>(R.id.btnCadastrarUsuario)
+        binding = ActivityCadastroBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-
-        btnCadastrarUsuario.setOnClickListener {
-
-            val nomeUsuario = nomeUsuarioEditText.text.toString().trim()
-            val email = emailEditText.text.toString().trim()
-            val senha = senhaEditText.text.toString().trim()
-
+        binding.btnCadastrarUsuario.setOnClickListener {
+            val nomeUsuario = binding.etNomeUsuario.text.toString().trim()
+            val email = binding.etEmailCadastro.text.toString().trim()
+            val senha = binding.etSenhaCadastro.text.toString().trim()
 
             if (nomeUsuario.isEmpty() || email.isEmpty() || senha.isEmpty()) {
                 Toast.makeText(this, "Por favor, preencha todos os campos.", Toast.LENGTH_SHORT).show()
@@ -28,11 +27,9 @@ class CadastroActivity : AppCompatActivity() {
                 Toast.makeText(this, "Por favor, insira um e-mail válido.", Toast.LENGTH_SHORT).show()
             } else if (senha.length < 6) {
                 Toast.makeText(this, "A senha deve ter pelo menos 6 caracteres.", Toast.LENGTH_SHORT).show()
-            }
-            else {
-
+            } else {
                 Toast.makeText(this, "Usuário '$nomeUsuario' cadastrado com o e-mail '$email'.", Toast.LENGTH_LONG).show()
-
+                finish()
             }
         }
     }

@@ -2,6 +2,14 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <style name="Base.Theme.QuickMenu" parent="Theme.Material3.DayNight.NoActionBar">
     </style>
+    <style name="Theme.QuickMenu" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:statusBarColor">#A61DBD</item>
+    </style>
 
-    <style name="Theme.QuickMenu" parent="Base.Theme.QuickMenu" />
+    <style name="Theme.AppSplash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/white</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/logo</item>
+        <item name="windowSplashScreenIconBackgroundColor">@color/white</item>
+        <item name="postSplashScreenTheme">@style/Theme.QuickMenu</item>
+    </style>
 </resources>

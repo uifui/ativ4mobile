@@ -1,4 +1,4 @@
-package com.example.quickmenu
+package com.example.login
 
 import com.example.login.R
 import android.content.Intent
@@ -10,26 +10,31 @@ import android.text.style.ClickableSpan
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.example.login.CadastroActivity
+import com.example.login.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityMainBinding
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_form_login)
+        val splashScreen = installSplashScreen()
 
-        val emailEditText = findViewById<EditText>(R.id.etEmail)
-        val senhaEditText = findViewById<EditText>(R.id.etSenha)
-        val btnEntrar = findViewById<Button>(R.id.btnEntrar)
-        val tvCadastroLink = findViewById<TextView>(R.id.tvCadastroLink)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        btnEntrar.setOnClickListener {
-            val email = emailEditText.text.toString().trim()
-            val senha = senhaEditText.text.toString().trim()
+        binding.btnEntrar.setOnClickListener {
+            val email = binding.etEmail.text.toString().trim()
+            val senha = binding.etSenha.text.toString().trim()
 
             if (email.isEmpty() || senha.isEmpty()) {
                 Toast.makeText(this, "Preencha todos os campos", Toast.LENGTH_SHORT).show()
             } else {
                 Toast.makeText(this, "Entrando...", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, UsuarioActivity::class.java)
+                startActivity(intent)
             }
         }
 
@@ -49,8 +54,8 @@ class MainActivity : AppCompatActivity() {
             spannableString.setSpan(clickableSpan, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         }
 
-        tvCadastroLink.text = spannableString
-        tvCadastroLink.movementMethod = LinkMovementMethod.getInstance()
-
+        // Use binding para acessar tvCadastroLink
+        binding.tvCadastro.text = spannableString
+        binding.tvCadastro.movementMethod = LinkMovementMethod.getInstance()
     }
 }
