@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/loginFragment">
+
+    <!-- 1. DESTINO DE LOGIN (Tela Inicial) -->
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.login.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+
+        <!-- AÇÃO 1: Ir para Cadastro -->
+        <action
+            android:id="@+id/action_loginFragment_to_cadastroFragment"
+            app:destination="@id/cadastroFragment" />
+
+        <!-- AÇÃO 2: Ir para Área de Usuário (após login bem-sucedido) -->
+        <action
+            android:id="@+id/action_loginFragment_to_usuarioFragment"
+            app:destination="@id/usuarioFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
+        <!-- Importante: Limpa a pilha de Login para que o usuário não volte -->
+
+    </fragment>
+
+    <!-- 2. DESTINO DE CADASTRO -->
+    <fragment
+        android:id="@+id/cadastroFragment"
+        android:name="com.example.login.CadastroFragment"
+        android:label="fragment_cadastro"
+        tools:layout="@layout/fragment_cadastro" >
+        <action
+            android:id="@+id/action_cadastroFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+
+    <!-- 3. DESTINO ÁREA DE USUÁRIO -->
+    <fragment
+        android:id="@+id/usuarioFragment"
+        android:name="com.example.login.UsuarioFragment"
+        android:label="fragment_usuario"
+        tools:layout="@layout/fragment_usuario" />
+
+</navigation>
