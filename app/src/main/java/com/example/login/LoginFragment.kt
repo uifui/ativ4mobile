@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.example.login.databinding.FragmentLoginBinding
 
 class LoginFragment : Fragment() {
@@ -30,6 +31,8 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val navController = findNavController()
+
         binding.btnEntrar.setOnClickListener {
             val email = binding.etEmail.text.toString().trim()
             val senha = binding.etSenha.text.toString().trim()
@@ -39,20 +42,7 @@ class LoginFragment : Fragment() {
             } else {
                 Toast.makeText(requireContext(), "Login realizado com sucesso!", Toast.LENGTH_SHORT).show()
 
-                // ********** MUDANÇA AQUI **********
-                // 1. Removemos o Intent para UsuarioActivity.
-                // 2. Fazemos uma transação de Fragment para carregar o UsuarioFragment.
-                parentFragmentManager
-                    .beginTransaction()
-                    // Substitui o LoginFragment pelo UsuarioFragment no contêiner
-                    .replace(R.id.fragment_container, UsuarioFragment())
-                    // Adicionamos à pilha para que o botão Voltar não feche o app,
-                    // mas sim volte para a tela de Login (se desejado).
-                    // Para evitar que o usuário volte ao Login após um login bem-sucedido,
-                    // NÃO se deve adicionar à Back Stack aqui.
-                    .commit()
-                // Se desejar limpar a Back Stack completamente antes de ir para o usuário (melhor para login):
-                // parentFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+                navController.navigate(R.id.action_loginFragment_to_usuarioFragment)
             }
         }
 
@@ -60,14 +50,10 @@ class LoginFragment : Fragment() {
         val fullText = "Preencha com seus dados para realizar o cadastro"
         val spannableString = SpannableString(fullText)
 
+
         val clickableSpan = object : ClickableSpan() {
             override fun onClick(widget: View) {
-                parentFragmentManager
-                    .beginTransaction()
-                    .replace(R.id.fragment_container, CadastroFragment())
-                    // Mantém na Back Stack para poder voltar do Cadastro para o Login
-                    .addToBackStack(null)
-                    .commit()
+                navController.navigate(R.id.action_loginFragment_to_cadastroFragment)
             }
         }
 

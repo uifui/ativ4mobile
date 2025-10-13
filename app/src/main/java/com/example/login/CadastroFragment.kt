@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment // Alterado de AppCompatActivity
+import androidx.navigation.fragment.findNavController
 
 import com.example.login.databinding.FragmentCadastroBinding
 
@@ -31,6 +32,8 @@ class CadastroFragment : Fragment() { // Herdar de Fragment
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val navController = findNavController()
+
         binding.btnCadastrarUsuario.setOnClickListener {
             val nomeUsuario = binding.etNomeUsuario.text.toString().trim()
             val email = binding.etEmailCadastro.text.toString().trim()
@@ -50,9 +53,9 @@ class CadastroFragment : Fragment() { // Herdar de Fragment
                     Toast.LENGTH_LONG
                 ).show()
 
-                // Em um Fragment, você não usa 'finish()'.
-                // Você usaria o Navigation Component ou a lógica da Activity hospedeira para trocar o Fragment.
-                // Exemplo com Navigation Component: findNavController().popBackStack()
+                navController.navigate(R.id.action_cadastroFragment_to_loginFragment)
+
+
             }
         }
     }
