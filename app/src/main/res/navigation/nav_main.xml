@@ -3,15 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_main"
-    app:startDestination="@id/homeFragment2">
+    app:startDestination="@id/homeFragment">
 
     <fragment
-        android:id="@+id/homeFragment2"
+        android:id="@+id/homeFragment"
         android:name="com.example.login.Main.Home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
     <fragment
-        android:id="@+id/carrinhoFragment2"
+        android:id="@+id/carrinhoFragment"
         android:name="com.example.login.Main.Carrinho.CarrinhoFragment"
         android:label="CarrinhoFragment" />
     <fragment
@@ -19,7 +19,12 @@
         android:name="com.example.login.Auth.CadastroFragment"
         android:label="CadastroFragment" />
     <fragment
-        android:id="@+id/usuarioFragment2"
+        android:id="@+id/usuarioFragment"
         android:name="com.example.login.Main.Perfil.UsuarioFragment"
         android:label="UsuarioFragment" />
+    <fragment
+        android:id="@+id/notificacaoFragment"
+        android:name="com.example.login.Main.Notificacao.NotificacaoFragment"
+        android:label="fragment_notificacao"
+        tools:layout="@layout/fragment_notificacao" />
 </navigation>
