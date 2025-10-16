@@ -1,12 +1,14 @@
-package com.example.login
+package com.example.login.Auth
 
 import android.os.Bundle
+import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment // Alterado de AppCompatActivity
 import androidx.navigation.fragment.findNavController
+import com.example.login.R
 
 import com.example.login.databinding.FragmentCadastroBinding
 
@@ -42,7 +44,7 @@ class CadastroFragment : Fragment() { // Herdar de Fragment
             // NOTA: Em Fragments, use 'requireContext()' ou 'activity' para o Context
             if (nomeUsuario.isEmpty() || email.isEmpty() || senha.isEmpty()) {
                 Toast.makeText(requireContext(), "Por favor, preencha todos os campos.", Toast.LENGTH_SHORT).show()
-            } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
                 Toast.makeText(requireContext(), "Por favor, insira um e-mail válido.", Toast.LENGTH_SHORT).show()
             } else if (senha.length < 6) {
                 Toast.makeText(requireContext(), "A senha deve ter pelo menos 6 caracteres.", Toast.LENGTH_SHORT).show()
@@ -53,7 +55,7 @@ class CadastroFragment : Fragment() { // Herdar de Fragment
                     Toast.LENGTH_LONG
                 ).show()
 
-                navController.navigate(R.id.action_cadastroFragment_to_loginFragment)
+                //navController.navigate(R.id.action_cadastroFragment_to_loginFragment)
 
 
             }

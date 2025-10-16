@@ -1,9 +1,11 @@
-package com.example.login
+package com.example.login.Main
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-// Importa o binding do layout da Activity (que agora deve conter apenas o FragmentContainerView)
+import androidx.navigation.NavHost
+import androidx.navigation.ui.setupWithNavController
+import com.example.login.R
 import com.example.login.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -14,12 +16,19 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Instala a splash screen (mantido do código original)
-        installSplashScreen()
-
         // 1. Inicializa o View Binding para a Activity
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val navHostFragment = supportFragmentManager
+            .findFragmentById(R.id.navbar) as NavHost // ID do NavHost na HomeActivity
+
+        val navController = navHostFragment.navController
+
+        // VINCULA A BOTTOM NAV BAR (que está no layout da HomeActivity)
+        binding.navbar.setupWithNavController(navController)
+
+        // Agora, ao clicar no ícone do carrinho na BottomNavigationView,
+        // o usuário é levado para o CarrinhoFragment.
     }
 }
