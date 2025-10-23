@@ -8,7 +8,7 @@
     <!-- 1. DESTINO DE LOGIN (Tela Inicial) -->
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.login.LoginFragment"
+        android:name="com.example.login.Auth.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
 
@@ -30,7 +30,7 @@
     <!-- 2. DESTINO DE CADASTRO -->
     <fragment
         android:id="@+id/cadastroFragment"
-        android:name="com.example.login.CadastroFragment"
+        android:name="com.example.login.Auth.CadastroFragment"
         android:label="fragment_cadastro"
         tools:layout="@layout/fragment_cadastro" >
         <action

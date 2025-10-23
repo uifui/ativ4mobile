@@ -1,0 +1,249 @@
+Subject: [PATCH] implementando o carrinho
+---
+Index: .idea/vcs.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/vcs.xml b/.idea/vcs.xml
+new file mode 100644
+--- /dev/null	(revision 381353e0fd4a8ed009c6ff76521369950ab9d1b3)
++++ b/.idea/vcs.xml	(revision 381353e0fd4a8ed009c6ff76521369950ab9d1b3)
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="VcsDirectoryMappings">
++    <mapping directory="" vcs="Git" />
++  </component>
++</project>
+\ No newline at end of file
+Index: app/src/main/java/com/example/login/Carrinho/CarrinhoFragment.kt
+===================================================================
+diff --git a/app/src/main/java/com/example/login/Carrinho/CarrinhoFragment.kt b/app/src/main/java/com/example/login/Carrinho/CarrinhoFragment.kt
+new file mode 100644
+--- /dev/null	(revision 381353e0fd4a8ed009c6ff76521369950ab9d1b3)
++++ b/app/src/main/java/com/example/login/Carrinho/CarrinhoFragment.kt	(revision 381353e0fd4a8ed009c6ff76521369950ab9d1b3)
+@@ -0,0 +1,124 @@
++package com.example.login.Carrinho
++
++import android.os.Bundle
++import android.view.LayoutInflater
++import android.view.View
++import android.view.ViewGroup
++import androidx.fragment.app.Fragment
++import com.example.login.databinding.FragmentCarrinhoBinding
++
++import java.text.NumberFormat
++import java.util.Locale
++
++interface CarrinhoActionsListener {
++    fun onRemoverItem(position: Int)
++}
++
++class CarrinhoFragment : Fragment(), CarrinhoActionsListener {
++
++    private var _binding: FragmentCarrinhoBinding? = null
++    private val binding get() = _binding!!
++
++    private lateinit var carrinhoAdapter: CarrinhoAdapter
++    private val listaItens = mutableListOf<ItemCarrinho>()
++
++    // *** REMOVIDO: TotalUpdateListener e onAttach ***
++    // Motivo: A atualização do total está agora DENTRO do Fragment.
++
++    override fun onCreateView(
++        inflater: LayoutInflater, container: ViewGroup?,
++        savedInstanceState: Bundle?
++    ): View {
++        _binding = FragmentCarrinhoBinding.inflate(inflater, container, false)
++        return binding.root
++    }
++
++    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
++        super.onViewCreated(view, savedInstanceState)
++
++        // 1. Inicializa a lista de dados
++        listaItens.add(ItemCarrinho("1", "Bolo Red Velvet", 50.00, 1, 3))
++        listaItens.add(ItemCarrinho("2", "Brigadeiro de morango", 9.00, 1, 3))
++
++        // 2. Cria e INICIALIZA a instância do seu adapter
++        carrinhoAdapter = CarrinhoAdapter(listaItens, this)
++
++        // 3. Configura a RecyclerView
++        binding.rvCarrinhoItens.layoutManager = LinearLayoutManager(context)
++        binding.rvCarrinhoItens.adapter = carrinhoAdapter
++
++        // 4. Lógica de clique de adição (o botão está no layout do Fragment)
++        // OBS: Se o botão 'btn_add_item_teste' estiver no Fragment:
++        binding.btnAddItemTeste.setOnClickListener { // Usamos binding diretamente
++            val novoItem = ItemCarrinho(
++                id = "ID_${System.currentTimeMillis()}",
++                nome = "Item Adicionado (TESTE)",
++                preco = 10.00,
++                quantidade = 1,
++                imagem = 3
++            )
++
++            carrinhoAdapter.adicionarItem(novoItem)
++
++            // ATUALIZA O TOTAL VISUALMENTE DENTRO DO PRÓPRIO FRAGMENT
++            atualizarTotalNaTela()
++        }
++
++        // 5. Lógica de clique para Comprar
++        binding.btnComprar.setOnClickListener {
++            // Aqui você pode notificar a Activity para iniciar o processo de checkout.
++            // Exemplo de como notificar a Activity:
++            (activity as? ComprarActionListener)?.onComprarClicked(calcularTotal())
++        }
++
++
++        // CÁLCULO INICIAL: Envia o total na primeira vez que o Fragment é carregado
++        atualizarTotalNaTela()
++    }
++
++    // Implementação da função da Interface CarrinhoActionsListener
++    override fun onRemoverItem(position: Int) {
++        // 1. Executa a remoção no Adapter
++        carrinhoAdapter.removerItem(position)
++
++        // 2. ATUALIZA O TOTAL VISUALMENTE DENTRO DO PRÓPRIO FRAGMENT
++        atualizarTotalNaTela()
++    }
++
++    // Função para calcular o total
++    private fun calcularTotal(): Double {
++        // Usa a lista de dados do Adapter, que é a mesma listaItens
++        return listaItens.sumOf { it.preco * it.quantidade }
++    }
++
++    // Função para ATUALIZAR as TextViews (total e total_title)
++    private fun atualizarTotalNaTela() {
++        val novoTotal = calcularTotal()
++        val totalItens = listaItens.size
++
++        // 1. Configuração do formatador de moeda
++        val formatador = NumberFormat.getCurrencyInstance(Locale("pt", "BR"))
++
++        // 2. ATUALIZAÇÃO DO TOTAL USANDO BINDING (Views no Fragment)
++        binding.total.text = formatador.format(novoTotal)
++
++        // 3. ATUALIZAÇÃO DA CONTAGEM DE ITENS USANDO BINDING
++        binding.totalTitle.text = "Total ($totalItens)"
++    }
++
++    override fun onDestroyView() {
++        super.onDestroyView()
++        _binding = null
++    }
++}
++
++/*
++    *** NOTA SOBRE COMUNICAÇÃO (OPCIONAL) ***
++    Se você precisar que a Activity saiba quando o botão "Comprar" foi clicado,
++    você ainda precisa de uma interface, mas com um propósito diferente:
++*/
++interface ComprarActionListener {
++    fun onComprarClicked(total: Double)
++}
++
++// REMOVA a interface TotalUpdateListener do seu projeto se usar esta solução.
+\ No newline at end of file
+Index: app/src/main/res/layout/fragment_carrinho.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/fragment_carrinho.xml b/app/src/main/res/layout/fragment_carrinho.xml
+new file mode 100644
+--- /dev/null	(revision 381353e0fd4a8ed009c6ff76521369950ab9d1b3)
++++ b/app/src/main/res/layout/fragment_carrinho.xml	(revision 381353e0fd4a8ed009c6ff76521369950ab9d1b3)
+@@ -0,0 +1,72 @@
++<?xml version="1.0" encoding="utf-8"?>
++<androidx.constraintlayout.widget.ConstraintLayout
++    xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    xmlns:tools="http://schemas.android.com/tools"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    android:fitsSystemWindows="true"
++    tools:context=".MainActivity">
++
++    <Button
++        android:id="@+id/"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_margin="16dp"
++
++        android:layout_marginBottom="20dp"
++
++        android:text="Adicionar Item (TESTE)"
++        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintStart_toStartOf="parent"
++        tools:ignore="InvalidId" />
++
++    <Button
++        android:id="@+id/btn_Comprar"
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:layout_marginHorizontal="30dp"
++        android:layout_marginBottom="52dp"
++        android:text="Comprar"
++        app:layout_constraintBottom_toBottomOf="parent"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintStart_toStartOf="parent" />
++
++    <LinearLayout
++        android:id="@+id/linearLayout"
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:layout_marginHorizontal="30dp"
++        android:layout_marginBottom="4dp"
++        android:orientation="horizontal"
++        app:layout_constraintBottom_toTopOf="@+id/btn_Comprar"
++        app:layout_constraintStart_toStartOf="parent">
++
++        <TextView
++            android:id="@+id/total_title"
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:layout_marginBottom="4dp"
++            android:layout_weight="1"
++            android:text="Total(2)"
++            app:layout_constraintBottom_toTopOf="@+id/btn_Comprar"
++            app:layout_constraintEnd_toEndOf="parent"
++            app:layout_constraintStart_toStartOf="parent" />
++
++        <TextView
++            android:id="@+id/total"
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:layout_marginBottom="4dp"
++            android:layout_weight="1"
++            android:text="R$ 59,00"
++            android:textAlignment="textEnd"
++            app:layout_constraintBottom_toTopOf="@+id/btn_Comprar"
++            app:layout_constraintEnd_toEndOf="parent"
++            app:layout_constraintStart_toStartOf="parent" />
++
++    </LinearLayout>
++
++
++</androidx.constraintlayout.widget.ConstraintLayout>
+Index: app/src/main/res/values/ids.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/values/ids.xml b/app/src/main/res/values/ids.xml
+new file mode 100644
+--- /dev/null	(revision 381353e0fd4a8ed009c6ff76521369950ab9d1b3)
++++ b/app/src/main/res/values/ids.xml	(revision 381353e0fd4a8ed009c6ff76521369950ab9d1b3)
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <item name="btn_Comprar" type="id" />
++    <item name="aaa" type="id">aaa</item>
++</resources>
+\ No newline at end of file

@@ -1,6 +1,5 @@
-package com.example.login
+package com.example.login.Auth
 
-import android.content.Intent
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.Spanned
@@ -12,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.example.login.R
 import com.example.login.databinding.FragmentLoginBinding
 
 class LoginFragment : Fragment() {
