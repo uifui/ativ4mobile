@@ -1,11 +1,10 @@
-package com.example.login
+package com.example.login.Main.Perfil
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-// IMPORTANTE: Assumindo que o layout agora se chama fragment_usuario.xml
 import com.example.login.databinding.FragmentUsuarioBinding
 
 class UsuarioFragment : Fragment() {

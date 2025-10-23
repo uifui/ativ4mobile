@@ -42,7 +42,7 @@ class LoginFragment : Fragment() {
             } else {
                 Toast.makeText(requireContext(), "Login realizado com sucesso!", Toast.LENGTH_SHORT).show()
 
-                navController.navigate(R.id.action_loginFragment_to_usuarioFragment)
+                //navController.navigate(R.id.action_loginFragment_to_usuarioFragment)
             }
         }
 
@@ -53,7 +53,7 @@ class LoginFragment : Fragment() {
 
         val clickableSpan = object : ClickableSpan() {
             override fun onClick(widget: View) {
-                navController.navigate(R.id.action_loginFragment_to_cadastroFragment)
+                //.navigate(R.id.action_loginFragment_to_cadastroFragment)
             }
         }
 

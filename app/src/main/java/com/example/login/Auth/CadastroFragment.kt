@@ -55,7 +55,7 @@ class CadastroFragment : Fragment() { // Herdar de Fragment
                     Toast.LENGTH_LONG
                 ).show()
 
-                navController.navigate(R.id.action_cadastroFragment_to_loginFragment)
+                //navController.navigate(R.id.action_cadastroFragment_to_loginFragment)
 
 
             }
