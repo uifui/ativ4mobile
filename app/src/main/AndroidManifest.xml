@@ -8,9 +8,9 @@
         android:theme="@style/Theme.QuickMenu">
 
         <activity
-            android:name=".Auth.AuthActivity"
+            android:name=".auth.AuthActivity"
             android:exported="true"
-            android:theme="@style/Theme.AppSplash">  <intent-filter>
+           ><intent-filter>
             <action android:name="android.intent.action.MAIN" />
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
@@ -18,8 +18,8 @@
         </activity>
 
         <activity
-            android:name=".MainActivity"
-            android:exported="false" />
-
+            android:name=".main.MainActivity"
+            android:exported="false">
+        </activity>
     </application>
 </manifest>

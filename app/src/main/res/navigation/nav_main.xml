@@ -2,12 +2,13 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_graph">
+    android:id="@+id/nav_main"
+    app:startDestination="@id/usuarioFragment">
 
 
     <fragment
         android:id="@+id/usuarioFragment"
-        android:name="com.example.login.UsuarioFragment"
+        android:name="com.example.login.main.UsuarioFragment"
         android:label="fragment_usuario"
         tools:layout="@layout/fragment_usuario" />
 

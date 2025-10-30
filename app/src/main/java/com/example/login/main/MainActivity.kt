@@ -1,8 +1,7 @@
-package com.example.login
+package com.example.login.main
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 // Importa o binding do layout da Activity (que agora deve conter apenas o FragmentContainerView)
 import com.example.login.databinding.ActivityMainBinding
 
@@ -13,9 +12,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        // Instala a splash screen (mantido do código original)
-        installSplashScreen()
 
         // 1. Inicializa o View Binding para a Activity
         binding = ActivityMainBinding.inflate(layoutInflater)

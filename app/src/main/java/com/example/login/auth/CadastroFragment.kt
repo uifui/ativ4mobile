@@ -1,4 +1,4 @@
-package com.example.login.Auth
+package com.example.login.auth
 
 import android.os.Bundle
 import android.util.Patterns
