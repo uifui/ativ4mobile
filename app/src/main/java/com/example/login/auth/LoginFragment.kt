@@ -42,7 +42,7 @@ class LoginFragment : Fragment() {
             } else {
                 Toast.makeText(requireContext(), "Login realizado com sucesso!", Toast.LENGTH_SHORT).show()
 
-                navController.navigate(R.id.action_loginFragment_to_mainActivity)
+                navController.navigate(R.id.action_loginFragment_to_nav_main)
             }
         }
 

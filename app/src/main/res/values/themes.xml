@@ -5,6 +5,12 @@
     <style name="Theme.QuickMenu" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="android:statusBarColor">#A61DBD</item>
     </style>
+    <style name="Theme.App.Starting" parent="Theme.SplashScreen">
 
+        <item name="windowSplashScreenAnimatedIcon">@drawable/logo</item>
+
+        <item name="windowSplashScreenIconBackgroundColor">@color/white</item>
+
+    </style>
 
 </resources>
