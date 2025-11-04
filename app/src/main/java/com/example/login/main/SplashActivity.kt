@@ -24,7 +24,7 @@ class SplashActivity : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
 
-        splashScreen.setKeepOnScreenCondition { !isReady }
+        /*splashScreen.setKeepOnScreenCondition { !isReady }
 
         handler.postDelayed({
 
@@ -42,8 +42,14 @@ class SplashActivity : AppCompatActivity() {
 
         }, SPLASH_TIME_OUT)
         handler.postDelayed(removeConditionCallback, SPLASH_TIME_OUT)
+    }*/
+        val nextActivityClass = AuthActivity::class.java
+        val intent = Intent(this, nextActivityClass).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        }
+        startActivity(intent)
+        finish()
     }
-
     override fun onDestroy() {
         super.onDestroy()
     }
