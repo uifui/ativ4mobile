@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UsuarioActivity">
+    tools:context=".main.MainActivity">
 
     <TextView
         android:id="@+id/textView5"
@@ -124,17 +124,7 @@
             app:srcCompat="@drawable/sweetcake" />
     </LinearLayout>
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/navbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#FABE28"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/navbar"
-        app:itemIconSize="32dp"
 
-        />
 
     <ImageButton
         android:id="@+id/voltar"

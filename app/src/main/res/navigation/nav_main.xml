@@ -3,13 +3,31 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_main"
-    app:startDestination="@id/usuarioFragment">
+    app:startDestination="@id/homeFragment">
 
 
     <fragment
         android:id="@+id/usuarioFragment"
-        android:name="com.example.login.main.UsuarioFragment"
+        android:name="com.example.login.main.usuario.UsuarioFragment"
         android:label="fragment_usuario"
         tools:layout="@layout/fragment_usuario" />
+
+    <fragment
+        android:id="@+id/carrinhoFragment"
+        android:name="com.example.login.main.carrinho.CarrinhoFragment"
+        android:label="fragment_carrinho"
+        tools:layout="@layout/fragment_carrinho" />
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.login.main.home.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/notificacaoFragment"
+        android:name="com.example.login.main.notificacao.NotificacaoFragment"
+        android:label="fragment_notificacao"
+        tools:layout="@layout/fragment_notificacao" />
 
 </navigation>

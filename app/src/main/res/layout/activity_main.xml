@@ -7,7 +7,7 @@
     tools:context=".main.MainActivity">
 
   <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragment_container"
+        android:id="@+id/nav_host"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -15,17 +15,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:name="androidx.navigation.fragment.NavHostFragment"
-        tools:layout="@layout/fragment_usuario"
+        tools:layout="@layout/fragment_home"
         app:defaultNavHost="true"
         app:navGraph="@navigation/nav_main"
         />
-    <!--<TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Se este texto aparecer, o problema é o Navigation!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>-->
+
+  <com.google.android.material.bottomnavigation.BottomNavigationView
+      android:id="@+id/navbar"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="#FABE28"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:menu="@menu/navbar"
+      app:itemIconSize="32dp"
+
+      />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
